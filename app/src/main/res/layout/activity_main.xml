@@ -90,5 +90,43 @@
             android:inputType="phone"
             android:hint="Telefone Celular"
             android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sexo"
+            android:layout_marginTop="16dp"/>
+        <RadioGroup
+            android:id="@+id/radio_group_sexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radio_sexo_masculino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculino"
+                android:layout_marginEnd="16dp"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/radio_sexo_feminino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminino"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data de Nascimento"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/edit_data_nascimento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:hint="dd/mm/aaaa"
+            android:focusable="false"
+            android:clickable="true"/>
     </LinearLayout>
 </ScrollView>
