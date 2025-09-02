@@ -128,5 +128,29 @@
             android:hint="dd/mm/aaaa"
             android:focusable="false"
             android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Formação"
+            android:layout_marginTop="16dp"/>
+        <Spinner
+            android:id="@+id/spinner_formacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vagas de Interesse"
+            android:layout_marginTop="16dp"/>
+        <EditText
+            android:id="@+id/edit_vagas_interesse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top"/>
+
     </LinearLayout>
 </ScrollView>
