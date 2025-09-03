@@ -18,6 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
 
+        // Configura a visibilidade do campo de celular
+        activityMainBinding.switchAdicionarCelular.setOnCheckedChangeListener { _, isChecked ->
+            activityMainBinding.editCelular.visibility = if (isChecked) View.VISIBLE else View.GONE
+            if (!isChecked) {
+                activityMainBinding.editCelular.text?.clear()
+            }
+        }
+
         // Configura o botão Limpar
         activityMainBinding.btnLimpar.setOnClickListener {
             limparFormulario()
