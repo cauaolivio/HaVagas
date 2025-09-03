@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.prmd.sc3039587.havagas
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import br.edu.ifsp.scl.prmd.sc3039587.havagas.databinding.ActivityMainBinding
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,10 +28,30 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Configura o DatePicker para o campo de data de nascimento
+        activityMainBinding.editDataNascimento.setOnClickListener {
+            mostrarDatePicker()
+        }
+
         // Configura o botão Limpar
         activityMainBinding.btnLimpar.setOnClickListener {
             limparFormulario()
         }
+    }
+
+    private fun mostrarDatePicker() {
+        val calendar = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, year, month, dayOfMonth ->
+                val dataSelecionada = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year)
+                activityMainBinding.editDataNascimento.setText(dataSelecionada)
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
 
     private fun limparFormulario() {
