@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.prmd.sc3039587.havagas
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
@@ -37,7 +38,11 @@ class MainActivity : AppCompatActivity() {
             mostrarDatePicker()
         }
 
-        // Configura o botão Limpar
+        // Configura os botões de Salvar e Limpar
+        activityMainBinding.btnSalvar.setOnClickListener {
+            mostrarDadosEmPopUp()
+        }
+
         activityMainBinding.btnLimpar.setOnClickListener {
             limparFormulario()
         }
@@ -115,6 +120,60 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.editInstituicao.text?.clear()
         activityMainBinding.editTituloMonografia.text?.clear()
         activityMainBinding.editOrientador.text?.clear()
+    }
+
+    private fun mostrarDadosEmPopUp() {
+        val mensagem = StringBuilder()
+
+        // Coleta os dados dos campos
+        val nome = activityMainBinding.editNome.text.toString()
+        val email = activityMainBinding.editEmail.text.toString()
+        val recebeEmails = activityMainBinding.switchEmailAtualizacoes.isChecked
+        val telefone = activityMainBinding.editTelefone.text.toString()
+        val tipoTelefone = if (activityMainBinding.radioTelefoneComercial.isChecked) "Comercial" else "Residencial"
+        val celular = if (activityMainBinding.switchAdicionarCelular.isChecked) activityMainBinding.editCelular.text.toString() else "Não informado"
+        val sexo = if (activityMainBinding.radioSexoMasculino.isChecked) "Masculino" else "Feminino"
+        val dataNascimento = activityMainBinding.editDataNascimento.text.toString()
+        val formacao = activityMainBinding.spinnerFormacao.selectedItem.toString()
+        val vagasInteresse = activityMainBinding.editVagasInteresse.text.toString()
+
+        // Adiciona os dados à mensagem
+        mensagem.appendLine("Nome Completo: $nome")
+        mensagem.appendLine("E-mail: $email")
+        mensagem.appendLine("Receber E-mails: ${if(recebeEmails) "Sim" else "Não"}")
+        mensagem.appendLine("Telefone: $telefone ($tipoTelefone)")
+        if (celular != "Não informado") {
+            mensagem.appendLine("Celular: $celular")
+        }
+        mensagem.appendLine("Sexo: $sexo")
+        mensagem.appendLine("Data de Nascimento: $dataNascimento")
+        mensagem.appendLine("Formação: $formacao")
+
+        // Adiciona os dados de formação específicos
+        when (activityMainBinding.spinnerFormacao.selectedItemPosition) {
+            0, 1 -> {
+                mensagem.appendLine("Ano de Formatura: ${activityMainBinding.editAnoFormatura.text}")
+            }
+            2, 3 -> {
+                mensagem.appendLine("Ano de Conclusão: ${activityMainBinding.editAnoConclusao.text}")
+                mensagem.appendLine("Instituição: ${activityMainBinding.editInstituicao.text}")
+            }
+            4, 5 -> {
+                mensagem.appendLine("Ano de Conclusão: ${activityMainBinding.editAnoConclusao.text}")
+                mensagem.appendLine("Instituição: ${activityMainBinding.editInstituicao.text}")
+                mensagem.appendLine("Título da Monografia: ${activityMainBinding.editTituloMonografia.text}")
+                mensagem.appendLine("Orientador: ${activityMainBinding.editOrientador.text}")
+            }
+        }
+
+        mensagem.appendLine("Vagas de Interesse: ${vagasInteresse.ifEmpty { "Não informado" }}")
+
+        // Exibe o pop-up
+        AlertDialog.Builder(this)
+            .setTitle("Dados do Cadastro")
+            .setMessage(mensagem.toString())
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun limparFormulario() {
